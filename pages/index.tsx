@@ -3,10 +3,13 @@ import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { Erc20, Erc20__factory } from "../contracts/types";
 
-const USDC_ADDRESS = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
+const USDC_ADDRESS = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48";
 
 export default function Home() {
-  const [provider, setProvider] = useState<ethers.providers.Web3Provider | null>(null);
+  const [
+    provider,
+    setProvider,
+  ] = useState<ethers.providers.Web3Provider | null>(null);
   const [signer, setSigner] = useState<ethers.Signer | null>(null);
   const [account, setAccount] = useState<string | null>(null);
   const [contract, setContract] = useState<Erc20 | null>(null);
@@ -46,9 +49,9 @@ export default function Home() {
   useEffect(() => {
     const initContracts = async () => {
       if (signer) {
-        const contract_ = Erc20__factory.connect(USDC_ADDRESS, signer)
+        const contract_ = Erc20__factory.connect(USDC_ADDRESS, signer);
         const name_ = await contract_.name();
-        
+
         setContract(contract_);
         setName(name_);
       }
@@ -56,8 +59,10 @@ export default function Home() {
     initContracts();
   }, [signer]);
 
-  return <div>
-    <div>Account: {account || "--"}</div>
-    <div>Contract name: {name}</div>
-  </div>;
+  return (
+    <div>
+      <div>Account: {account || "--"}</div>
+      <div>Contract name: {name}</div>
+    </div>
+  );
 }
